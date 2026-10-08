@@ -1,0 +1,29 @@
+{
+  "collections": {
+    "users": {
+      "documents": {
+        "{userId}": {
+          "fields": {
+            "email": "string",
+            "displayName": "string",
+            "lastLogin": "timestamp"
+          },
+          "collections": {
+            "orders": {
+              "documents": {
+                "{orderId}": {
+                  "fields": {
+                    "items": "array",
+                    "totalPrice": "number",
+                    "status": "string",
+                    "createdAt": "timestamp"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

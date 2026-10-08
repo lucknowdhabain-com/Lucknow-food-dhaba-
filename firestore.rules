@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidOrder(order) {
+      return order.items is list &&
+             order.totalPrice is number &&
+             order.status is string &&
+             order.createdAt is timestamp;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // Orders subcollection
+      match /orders/{orderId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidOrder(request.resource.data);
+        allow update: if false; // Orders should be immutable for the user once placed
+        allow delete: if false;
+      }
+    }
+  }
+}
