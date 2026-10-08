@@ -1,0 +1,6 @@
+{
+  "name": "Lucknow Dhaba",
+  "description": "Authentic Lucknowi Zayka at your doorstep. Order Biryani, Kebabs, and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
